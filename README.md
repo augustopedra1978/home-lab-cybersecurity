@@ -2,7 +2,7 @@
 
 > **Laboratório doméstico de cibersegurança para desenvolvimento de competências práticas em Blue Team / SOC / GRC**
 > **Período:** Junho a Julho de 2026
-> **Autor:** Analista em transição de carreira para Cibersegurança (Blue Team / SOC / GRC / OT-ICS Security)
+> **Autor:** Profissional de Cibersegurança (Blue Team / SOC / GRC / OT-ICS Security)
 
 ![Wazuh](https://img.shields.io/badge/Wazuh-4.14.5-blue)
 ![Ubuntu](https://img.shields.io/badge/Ubuntu_Server-24.04.4_LTS-orange)
