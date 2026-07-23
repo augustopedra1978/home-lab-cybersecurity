@@ -7,7 +7,7 @@
 ![Wazuh](https://img.shields.io/badge/Wazuh-4.14.6-blue)
 ![Ubuntu](https://img.shields.io/badge/Ubuntu_Server-24.04.4_LTS-orange)
 ![Windows](https://img.shields.io/badge/Windows_11-Pro-blue)
-![CIS](https://img.shields.io/badge/CIS_Benchmark-47%25→87%25-success)
+![CIS](https://img.shields.io/badge/CIS_Benchmark-24%25→87%25-success)
 ![Suricata](https://img.shields.io/badge/Suricata-8.0.6-red)
 ![Sysmon](https://img.shields.io/badge/Sysmon-15.21-lightgrey)
 ![Splunk](https://img.shields.io/badge/Splunk-Integrated-black)
@@ -20,7 +20,7 @@
 1. [Visão Geral do Projeto](#1-visão-geral-do-projeto)
 2. [Arquitetura do Home Lab](#2-arquitetura-do-home-lab)
 3. [Fase 1 — Fundação: Instalação do Wazuh](#3-fase-1--fundação-instalação-do-wazuh)
-4. [Fase 2 — Hardening CIS Benchmark (47% → 87%)](#4-fase-2--hardening-cis-benchmark-47--87)
+4. [Fase 2 — Hardening CIS Benchmark (24% → 87%)](#4-fase-2--hardening-cis-benchmark-24--87)
 5. [Fase 3 — Criptografia de Disco (BitLocker)](#5-fase-3--criptografia-de-disco-bitlocker)
 6. [Fase 4 — Integrações Multi-SIEM (Splunk, Sysmon, Suricata)](#6-fase-4--integrações-multi-siem-splunk-sysmon-suricata)
 7. [Fase 5 — Acesso Remoto Seguro](#7-fase-5--acesso-remoto-seguro)
@@ -72,36 +72,36 @@ Este projeto documenta a construção, operação e hardening contínuo de um la
 
 ```
 ┌───────────────────────────────────────────────────────────────────┐
-│                        REDE DOMÉSTICA (exemplo)                    │
-│                         192.168.0.0/24                              │
-│                                                                     │
+│                        REDE DOMÉSTICA (exemplo)                   │
+│                         192.168.0.0/24                            │
+│                                                                   │
 │  ┌────────────────────────────────────┐   ┌──────────────────────┐│
-│  │      NOTEBOOK WINDOWS 11 PRO        │   │   VM UBUNTU SERVER   ││
-│  │      (IP fixo reservado por MAC)    │   │   (IP fixo por MAC)  ││
-│  │                                     │   │                      ││
-│  │  ┌───────────────┐                  │   │  ┌────────────────┐ ││
-│  │  │  Wazuh Agent   │──── TCP 1514 ───┼───┼─▶│ Wazuh Manager  │ ││
-│  │  │  Sysmon 15.21  │                  │   │  ├────────────────┤ ││
-│  │  │  Suricata 8.0.6│                  │   │  │ Wazuh Indexer  │ ││
-│  │  ├───────────────┤                  │   │  │  (OpenSearch)  │ ││
-│  │  │ Splunk         │◀── NAT 10.0.3.x─┼───┼──┤ Filebeat       │ ││
-│  │  │ Enterprise     │   (Universal    │   │  ├────────────────┤ ││
-│  │  │ (porta 9997)   │    Forwarder)   │   │  │Wazuh Dashboard │ ││
-│  │  ├───────────────┤                  │   │  │ (porta 443)    │ ││
-│  │  │ BitLocker      │                  │   └──┴────────────────┘ ││
-│  │  │ (TPM + PIN)    │      NIC1: Bridge (LAN) ─┘                  ││
+│  │      NOTEBOOK WINDOWS 11 PRO       │   │   VM UBUNTU SERVER   ││
+│  │      (IP fixo reservado por MAC)   │   │   (IP fixo por MAC)  ││
+│  │                                    │   │                      ││
+│  │  ┌───────────────┐                 │   │  ┌────────────────┐  ││
+│  │  │  Wazuh Agent   │────TCP 1514 ───┼───┼─▶│ Wazuh Manager  │ ││
+│  │  │  Sysmon 15.21  │                │   │  ├────────────────┤  ││
+│  │  │  Suricata 8.0.6│                │   │  │ Wazuh Indexer  │  ││
+│  │  ├───────────────┤                 │   │  │  (OpenSearch)  │  ││
+│  │  │ Splunk         │◀──NAT 10.0.3.x┼───┼──┤ Filebeat       │   ││
+│  │  │ Enterprise     │   (Universal   │   │  ├────────────────┤  ││
+│  │  │ (porta 9997)   │    Forwarder)  │   │  │Wazuh Dashboard │  ││
+│  │  ├───────────────┤                 │   │  │ (porta 443)    │  ││
+│  │  │ BitLocker      │                │   └──┴────────────────┘  ││
+│  │  │ (TPM + PIN)    │      NIC1: Bridge (LAN) ─┘                ││
 │  │  ├───────────────┤      NIC2: NAT (10.0.3.x, host-only interno)││
-│  │  │ Tailscale      │                                             ││
-│  │  │ (VPN mesh)     │                                             ││
-│  │  └───────────────┘                                             ││
-│  └────────────────────────────────────┘                            │
-│                                                                     │
+│  │  │ Tailscale      │                                           ││
+│  │  │ (VPN mesh)     │                                           ││
+│  │  └───────────────┘                                            ││
+│  └────────────────────────────────────┘                           │
+│                                                                   │
 │  ┌──────────────────────────────────────────────────────────┐     │
-│  │  ROTEADOR — DHCP + NextDNS (DoH/DoT) + WPA2/WPA3          │     │
+│  │  ROTEADOR — DHCP + NextDNS (DoH/DoT) + WPA2/WPA3         │     │
 │  └──────────────────────────────────────────────────────────┘     │
-│                                                                     │
-│  Outros dispositivos: Smart TV, smartphones, smartwatch,           │
-│  notebook secundário, desktop — todos com NextDNS configurado      │
+│                                                                   │
+│  Outros dispositivos: Smart TV, smartphones, smartwatch,          │
+│  notebook secundário, desktop — todos com NextDNS configurado     │
 └───────────────────────────────────────────────────────────────────┘
 ```
 
