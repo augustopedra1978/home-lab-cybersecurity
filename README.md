@@ -40,7 +40,7 @@
 Este projeto documenta a construção, operação e hardening contínuo de um laboratório doméstico de cibersegurança, com foco em:
 
 - Implantação e operação de um SIEM/XDR (Wazuh) em ambiente virtualizado
-- Hardening de endpoint Windows 11 segundo o **CIS Benchmark v3.0.0**, elevando a pontuação de conformidade de **47% para 87%**
+- Hardening de endpoint Windows 11 segundo o **CIS Benchmark v3.0.0**, elevando a pontuação de conformidade de **24% para 87%**
 - Criptografia de disco completo com TPM+PIN (BitLocker)
 - Integração de três fontes de dados de segurança (Sysmon, Suricata, Wazuh nativo) com um SIEM secundário (Splunk)
 - Configuração de acesso remoto seguro sem exposição de portas à internet
