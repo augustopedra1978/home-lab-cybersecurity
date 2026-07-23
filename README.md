@@ -90,7 +90,7 @@ Este projeto documenta a construção, operação e hardening contínuo de um la
 │  │  ├───────────────┤                 │   │  │ (porta 443)    │  ││
 │  │  │ BitLocker      │                │   └──┴────────────────┘  ││
 │  │  │ (TPM + PIN)    │      NIC1: Bridge (LAN) ─┘                ││
-│  │  ├───────────────┤      NIC2: NAT (10.0.3.x, host-only interno)││
+│  │  ├───────────────┤     NIC2: NAT (10.0.3.x, host-only interno)││
 │  │  │ Tailscale      │                                           ││
 │  │  │ (VPN mesh)     │                                           ││
 │  │  └───────────────┘                                            ││
